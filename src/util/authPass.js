@@ -5,7 +5,7 @@ const secretKey = 'iamrohan'
 const key = crypto.createHash('sha256').update(secretKey).digest();// Must be 32 characters for AES-256
 const iv = crypto.randomBytes(16); // Random Initialization Vector (IV)
 
-// Function to encrypt a password
+
 export function encryptPassword(password) {
     const cipher = crypto.createCipheriv(algorithm, key, iv);
     let encrypted = cipher.update(password, 'utf8', 'hex');

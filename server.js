@@ -7,8 +7,8 @@ import userRouter from "./src/routes/userRoute.js";
 const app=express();
 
 dotenv.config();
-const url = process.env.MONGOURL;
-const port=process.env.PORT || 3000;
+const url = 'mongodb://localhost:27017/Dummy_user';
+const port=8080;
 Dbconnection(url);
 app.use(cors());
 app.use('/upload', express.static('upload'));
