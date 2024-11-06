@@ -100,9 +100,11 @@ export const handleLogin =async (req,res)=>{
 
 
 export const Otpverify=async(req,res)=>{
-      try {
+    console.log('hjgfjhsdf');
+
         const {otp}=req.body;
         const user = await User.findOne({otp});
+        console.log(user,'hjgfjhsdf');
 
         if(user){
             const result = await User.updateOne({otp},{$set:{isverify:true}})
@@ -115,9 +117,7 @@ export const Otpverify=async(req,res)=>{
         }else{
             res.status(400).json({msg:'Invalid OTP',status:'failed'})
         }
-      } catch (error) {
-        res.status(400).json({msg:error.message,status:'failed'})
-      }
+      
 }
 
 
@@ -129,6 +129,7 @@ export const verificationOTP=async(req,res)=>{
         const otp=generateOTP();
         const user = await User.findOne({email});
         console.log(user,email);
+        console.log(user);
         
         if(!user){
             res.status(400).json({msg:"user not found",status:'failed'});
@@ -150,13 +151,16 @@ export const verificationOTP=async(req,res)=>{
 
 export const otpVerified =async(req,res)=>{
     try {
-        const {otp} =req.body;
+        const {otp} =req.query;
         const user=await User.findOne({otp});
+        console.log(user);
+        
         if(user){
             res.status(200).json({msg:'otp verify success',status:'success',data:user})
-        }
-        
+        }   
     } catch (error) {
+        console.log(error,':::verifi');
+        
         res.status(400).json({msg:error,status:'failed'})
     }
 }

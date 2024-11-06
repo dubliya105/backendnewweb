@@ -9,9 +9,9 @@ router.route('/')
 .get(authenticateToken,getAllUsers)
 .patch(updateUserStatus)
 
-router.route('/:id')
-.delete(deleteUserById)
-.patch(updateUser)
+// router.route('/:id')
+// .delete(deleteUserById)
+// .patch(updateUser)
 router.route('/pass/:id')
 .get(getPassword)   
 
