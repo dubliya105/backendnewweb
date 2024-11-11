@@ -20,4 +20,4 @@ app.use('/api/user',userRouter);
 
 app.listen(port,()=>{
     console.log(`server is running on port ${port}`)
-})
+})  

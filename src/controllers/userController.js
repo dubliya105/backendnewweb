@@ -100,8 +100,7 @@ export const handleLogin =async (req,res)=>{
 
 
 export const Otpverify=async(req,res)=>{
-    console.log('hjgfjhsdf');
-
+        
         const {otp}=req.body;
         const user = await User.findOne({otp});
         console.log(user,'hjgfjhsdf');
