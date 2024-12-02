@@ -56,9 +56,7 @@ export const getAllUsers =async (req,res)=>{
 
 export const searchAllUser =async (req,res)=>{
     try {
-        const key=req.params.key;
-
-          
+        const key=req.params.key; 
         const offset = parseInt(req.query.offset) || 0;
         const limit = parseInt(req.query.limit) || 3;
         const skip = (offset-1 ) * limit;
@@ -224,11 +222,13 @@ export const updateUser=async(req,res)=>{
 }
 
 export const uploadImage = async(req,res)=>{
-    try {
+    try {                   
         // Upload the file to Cloudinary
         const result = await cloudinary.uploader.upload(req.file.path , {
             folder:'upload'
          });
+         console.log(req.file.path,'uytsfuytgty');
+         
          // Delete the local file after a successful upload  
             fs.unlink(req.file.path,(error)=>{
                 if(error){
@@ -273,7 +273,7 @@ export const getPassword=async(req,res)=>{
         res.status(400).json({msg:error.message,status:'failed',data:{}})  
     }
 }
+ 
 
 
-
-
+                                                                                                                                                                                                                                                                                  
