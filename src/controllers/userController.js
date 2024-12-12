@@ -5,10 +5,9 @@ import crypto from 'crypto'
 import dotenv from 'dotenv';
 import { generateOTP,sendOTP,sendPassword,generatePassword } from "../util/otp.js";
 import { encryptPassword,decryptPassword } from "../util/authPass.js";
-dotenv.config();
 import { v2 as cloudinary } from 'cloudinary'; //  Import Cloudinary library
 import fs from 'fs';
-
+dotenv.config();
 // Cloudinary configuration
 cloudinary.config({
     cloud_name: 'dreyhiqqx',
