@@ -22,7 +22,6 @@ export const authenticateToken= async(req,res,next)=>{
         return res.status(401).json({ msg: 'Token has expired. Please log in again.' });
       }
       // Handle other errors
-      console.log(error);
       
       return res.status(403).json({ msg: 'Invalid token.',error });
     }

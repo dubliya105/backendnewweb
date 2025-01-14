@@ -11,7 +11,7 @@ export const sendOTP =async(email,otp)=>{
         secure: true, // true for 465, false for other ports
         auth: {
             user: 'rohandubliya@gmail.com',
-            pass: 'pqse dqwp kvht foro'
+            pass: 'gdtw pkxk yxlw fvle'   
         }
     })  
 

@@ -8,6 +8,7 @@ import { encryptPassword,decryptPassword } from "../util/authPass.js";
 import { v2 as cloudinary } from 'cloudinary'; //  Import Cloudinary library
 import fs from 'fs';
 dotenv.config();
+
 // Cloudinary configuration
 cloudinary.config({
     cloud_name: 'dreyhiqqx',
@@ -100,7 +101,6 @@ export const Otpverify=async(req,res)=>{
         
         const {otp}=req.body;
         const user = await User.findOne({otp});
-        console.log(user,'hjgfjhsdf');
 
         if(user){
             const result = await User.updateOne({otp},{$set:{isverify:true}})
@@ -120,13 +120,10 @@ export const Otpverify=async(req,res)=>{
 export const verificationOTP=async(req,res)=>{
     try {
         const {email}=req.body;
-        console.log(req.body);
         
         const otp=generateOTP();
         const user = await User.findOne({email});
-        console.log(user,email);
-        console.log(user);
-        
+
         if(!user){
             res.status(400).json({msg:"user not found",status:'failed'});
         }
@@ -135,11 +132,9 @@ export const verificationOTP=async(req,res)=>{
         sendOTP(email,otp);
        
        res.status(200).json({msg:'OTP sent successfully',data:result,status:'success'});
-       
 }
     } catch (error) {
-        console.log('jhgsdf',error);
-        
+
         res.status(400).json({msg:error,status:'failed'})
     }
 }
@@ -149,14 +144,10 @@ export const otpVerified =async(req,res)=>{
     try {
         const {otp} =req.query;
         const user=await User.findOne({otp});
-        console.log(user);
-        
         if(user){
             res.status(200).json({msg:'otp verify success',status:'success',data:user})
         }   
     } catch (error) {
-        console.log(error,':::verifi');
-        
         res.status(400).json({msg:error,status:'failed'})
     }
 }
@@ -166,7 +157,7 @@ export const newpass =async(req,res)=>{
     try {
         const {email,password,confirmPassword} =req.body;
         if(password===confirmPassword){
-        const hashPassword= await bcrypt.hash(password,10);
+        const hashPassword= encryptPassword(password);
         const user=await User.findOne({email});
             if(user){
                 const result = await User.updateOne({email},{$set:{password:hashPassword}})
@@ -205,7 +196,6 @@ export const deleteUserById =async (req,res)=>{
 
 export const updateUser=async(req,res)=>{
     try {
-        console.log();
         
         const {name,email}=req.body;
         const {id}=req.params; 
@@ -226,15 +216,11 @@ export const uploadImage = async(req,res)=>{
         const result = await cloudinary.uploader.upload(req.file.path , {
             folder:'upload'
          });
-         console.log(req.file.path,'uytsfuytgty');
-         
          // Delete the local file after a successful upload  
             fs.unlink(req.file.path,(error)=>{
                 if(error){
-                    console.log(error)
                     return
                 }
-                    console.log('file deleted')
             })
             res.status(200).json({msg:'success',data:result.secure_url})
     }
@@ -255,7 +241,6 @@ export const getUsersList =async (req,res)=>{
 
         res.status(200).json({msg:'Success',data:user,totalPages: Math.ceil(count / limit)});
     } catch (error) {
-        console.log(error);
         res.status(400).json({msg:error,status:'failed',data:{}})                 
     }
 }
@@ -272,7 +257,4 @@ export const getPassword=async(req,res)=>{
         res.status(400).json({msg:error.message,status:'failed',data:{}})  
     }
 }
- 
-
-
-                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                 
